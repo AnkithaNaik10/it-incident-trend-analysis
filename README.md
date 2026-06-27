@@ -19,7 +19,7 @@ An end-to-end data analytics project analyzing IT incident management patterns u
 ## Methodology
 
 ### 1. Data Cleaning
-- Removed -100 state records. Remaining rows: 141707
+- Removed 5 records with invalid state code (-100) — likely system errors or cancelled tickets
 - Filtered dataset to Resolved and Closed incidents only
 - Identified and resolved duplicate rows — each incident can appear multiple times due to field updates, reassignments, or state changes (not every incident passes through all states)
 - Deduplicated to final state per incident: 141,707 rows → 24,918 unique incidents
@@ -72,7 +72,7 @@ When measured at final ticket closure (the true end state), SLA compliance for h
 This reveals a significant misalignment — P1-Critical and P2-High are the most business-critical incidents (major outages, severe failures), yet they have the lowest SLA compliance rates. Only 1.9% of P1-Critical and 0.5% of P2-High incidents meet their SLA targets at closure, meaning 98%+ of the most critical incidents are breaching SLA. Meanwhile, routine P3/P4 tickets are meeting SLA at much higher rates, suggesting resources may be prioritizing easy tickets over critical ones.
 
 ### Finding 5 — Volume Trend
-Reliable data covers Feb–May 2016, showing a mild declining trend from ~9,000 incidents in March to ~7,500 in May (~17% reduction).
+Reliable data covers Feb–May 2016, showing a mild declining trend from 8,995 incidents (March) to 7,508 (May) — ~17% reduction.
 
 ---
 
