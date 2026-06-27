@@ -41,6 +41,20 @@ An end-to-end data analytics project analyzing IT incident management patterns u
 
 ---
 
+## Analytical Decisions & Investigations
+
+**Deduplication discovery:** Initial analysis showed incident counts roughly 2x higher than expected. Investigation revealed each incident appears multiple times in the dataset (one row per modification — field updates, reassignments, or state changes). Deduplicated to the final state per incident using sys_mod_count ordering, reducing 50,736 rows to 24,918 unique incidents.
+
+**SLA measurement investigation:** After deduplication, SLA compliance for P1/P2 dropped dramatically — triggering investigation into made_sla behavior across ticket states. Found that ~36% of incidents have made_sla flip between Resolved and Closed states. Confirmed breached tickets have genuinely long resolution times (median 201 hrs for breached vs overall median 23 hrs), validating the final Closed state as the more accurate SLA measure. The exact cause of the flip could not be fully explained from available data — documented as a known limitation showing analytical integrity over convenience.
+
+**Trend analysis iterations:** Volume trend required multiple approaches. Initial analysis using only resolved/closed incidents undercounted volume. Switching to the full dataset deduplicated by first occurrence (opened_at) gave true incident creation counts. Confirmed 274 genuine post-June 2016 incidents exist but represent only ~1% of total data — not a system artifact, but a minimal second data collection phase.
+
+**Median over mean:** Resolution time analysis uses median throughout due to heavily right-skewed distribution (mean: 182 hrs vs median: 23 hrs). A small number of very slow tickets distort the mean significantly, making it unrepresentative of typical resolution experience.
+
+**Cross-validation:** All key findings (resolution time by priority, SLA compliance rates) were independently verified in both Python and Power BI. Results matched within rounding, confirming findings are data-driven rather than tool-specific artifacts.
+
+---
+
 ## Key Findings
 
 ### Finding 1 — Category Concentration
