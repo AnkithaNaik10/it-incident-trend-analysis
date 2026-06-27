@@ -19,12 +19,13 @@ An end-to-end data analytics project analyzing IT incident management patterns u
 ## Methodology
 
 ### 1. Data Cleaning
+- Removed -100 state records. Remaining rows: 141707
 - Filtered dataset to Resolved and Closed incidents only
-- Identified and resolved duplicate rows — each incident was recorded multiple times as its state changed (New → Active → Resolved → Closed)
-- Deduplicated to final state per incident: 141,712 rows → 24,918 unique incidents
+- Identified and resolved duplicate rows — each incident can appear multiple times due to field updates, reassignments, or state changes (not every incident passes through all states)
+- Deduplicated to final state per incident: 141,707 rows → 24,918 unique incidents
 - Converted date columns from text to datetime
 - Calculated resolution time in hours (resolved_at - opened_at)
-- Handled missing values (3,119 incidents had no resolved_at timestamp)
+- Handled missing values (1,556 unique incidents had no resolved_at timestamp — excluded from resolution time calculations only)
 
 ### 2. Analysis & Visualizations (Python)
 - Incident count by category
